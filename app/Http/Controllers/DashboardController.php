@@ -24,4 +24,19 @@ class DashboardController extends Controller
         ];
         return view('admin.dashboard', $data);
     }
+
+    public function pelanggan()
+    {
+        $total_menu = Menu::count();
+        $total_pesanan = Pesanan::count();
+        $sebulan_lalu = now()->subMonth();
+        $total_pendapatan = Pesanan::where('created_at', '>=', $sebulan_lalu)->sum('total_harga');
+        $data = [
+            'total_menu' => $total_menu,
+            'total_pesanan' => $total_pesanan,
+            'total_pendapatan' => $total_pendapatan
+        ];
+        return view('pelanggan.dashboard', $data);
+    }
+
 }

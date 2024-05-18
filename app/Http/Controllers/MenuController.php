@@ -22,4 +22,12 @@ class MenuController extends Controller
     /*
         USER
     */
+    public function view_menu()
+    {
+        $menu = Menu::get();
+        $data = [
+            'menu' => $menu,
+        ];
+        return view('pelanggan.menu', $data);
+    }
 }

@@ -13,12 +13,11 @@ class LoginController extends Controller
     {
         if (Auth::check()) {
             $user = Auth::user();
-            return redirect()->route('admin.dashboard');
-            // if ($user->role === 'admin') {
-            //     return redirect()->route('admin.dashboard');
-            // } else if ($user->role === 'pelanggan') {
-            //     return redirect()->route('dashboard-pelanggan');
-            // }
+            if ($user->role == 'admin') {
+                return redirect()->route('admin.dashboard');
+            } else if ($user->role == 'pelanggan') {
+                return redirect()->route('pelanggan.dashboard');
+            }
         } else {
             return view('otentikasi.login');
         }
@@ -51,12 +50,11 @@ class LoginController extends Controller
 
         if (Auth::attempt($data, $remember)) {
             $user = Auth::user();
-            return redirect()->route('admin.dashboard');
-            // if ($user->role === 'admin') {
-            //     return redirect()->route('admin.dashboard');
-            // } else if ($user->role === 'pelanggan') {
-            //     return redirect()->route('dashboard-pelanggan');
-            // }
+            if ($user->role === 'admin') {
+                return redirect()->route('admin.dashboard');
+            } else if ($user->role === 'pelanggan') {
+                return redirect()->route('pelanggan.dashboard');
+            }
         } else {
             return redirect()->route('login')->withErrors(['msg' => 'Email atau Password Salah']);
         }

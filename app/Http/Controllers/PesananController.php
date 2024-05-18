@@ -21,4 +21,12 @@ class PesananController extends Controller
     /*
         USER
     */
+    public function view_pesanan()
+    {
+        $pesanan = Pesanan::get();
+        $data = [
+            'pesanan' => $pesanan,
+        ];
+        return view('pelanggan.pesanan', $data);
+    }
 }

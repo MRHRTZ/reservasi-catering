@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\KeranjangController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PenggunaController;
@@ -27,4 +28,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/pesanan', [PesananController::class, 'list_pesanan'])->name('admin.pesanan');
 
     // USER
+    Route::get('/pelanggan/dashboard', [DashboardController::class, 'pelanggan'])->name('pelanggan.dashboard');
+    Route::get('/pelanggan/menu', [MenuController::class, 'view_menu'])->name('pelanggan.menu');
+    Route::get('/pelanggan/pesanan', [PesananController::class, 'view_pesanan'])->name('pelanggan.pesanan');
+    Route::get('/pelanggan/keranjang', [KeranjangController::class, 'view_keranjang'])->name('pelanggan.keranjang');
+
 });
