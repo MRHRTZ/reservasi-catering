@@ -45,6 +45,18 @@
             @endif
         </div>
         <div class="form-group">
+            <label for="role">Akses</label>
+            <select name="role" id="role" class="form-control" required>
+                @if ($page == 'edit')
+                    <option value="admin" {{ $pengguna->role == 'admin' ? 'selected' : '' }}>Admin</option>
+                    <option value="pelanggan" {{ $pengguna->role == 'pelanggan' ? 'selected' : '' }}>Pelanggan</option>
+                @else
+                    <option value="admin">Admin</option>
+                    <option value="pelanggan">Pelanggan</option>
+                @endif
+            </select>
+        </div>
+        <div class="form-group">
             <label for="password">Password</label>
             @if ($page == 'edit')
                 <input type="password" name="password" id="password" placeholder="Masukan password untuk mengganti"

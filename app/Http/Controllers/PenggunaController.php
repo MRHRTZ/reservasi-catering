@@ -32,6 +32,7 @@ class PenggunaController extends Controller
             'nama' => $request->input('nama'),
             'email' => $request->input('email'),
             'no_hp' => $request->input('no_hp'),
+            'role' => $request->input('role'),
             'password' => Hash::make($request->input('password')),
             'alamat' => $request->input('alamat')
         ];
@@ -54,6 +55,7 @@ class PenggunaController extends Controller
             'nama' => $request->input('nama'),
             'email' => $request->input('email'),
             'no_hp' => $request->input('no_hp'),
+            'role' => $request->input('role'),
             'alamat' => $request->input('alamat')
         ];
         if ($request->input('password')) {

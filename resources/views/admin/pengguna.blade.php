@@ -14,6 +14,7 @@
                     <th>Nama</th>
                     <th>Email</th>
                     <th>No HP</th>
+                    <th>Akses</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -24,6 +25,13 @@
                         <td>{{ $user->nama }}</td>
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->no_hp }}</td>
+                        <td>
+                            @if ($user->role == 'admin')
+                                <span class="badge badge-primary">Admin</span>
+                            @elseif ($user->role == 'pelanggan')
+                                <span class="badge badge-success">Pelanggan</span>
+                            @endif
+                        </td>
                         <td>
                             <a href="{{ route('admin.pengguna.edit', $user->id) }}" class="btn btn-warning">Edit</a>
                             <a href="{{ route('admin.pengguna.delete', $user->id) }}" class="btn btn-danger">Hapus</a>

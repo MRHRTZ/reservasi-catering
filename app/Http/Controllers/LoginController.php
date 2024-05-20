@@ -64,7 +64,7 @@ class LoginController extends Controller
     {
         $request->validate([
             'nama' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users,email',
             'no_hp' => 'required',
             'alamat' => 'required',
             'password' => 'required|min:6',

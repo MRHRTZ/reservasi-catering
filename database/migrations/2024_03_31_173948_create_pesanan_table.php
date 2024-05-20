@@ -14,11 +14,14 @@ return new class extends Migration
         Schema::create('pesanan', function (Blueprint $table) {
             $table->id();
             $table->integer('id_pelanggan');
-            $table->integer('id_keranjang');
-            $table->integer('jumlah_tamu');
-            $table->string('metode_pembayaran');
-            $table->enum('status', ['belum_dikonfirmasi', 'dikonfirmasi', 'selesai', 'dibatalkan']);
-            $table->string('catatan')->nullable();
+            $table->dateTime('tanggal')->nullable();
+            $table->string('pengambilan')->nullable();
+            $table->string('alamat')->nullable();
+            $table->string('kode_pembayaran')->nullable();
+            $table->string('bukti_pembayaran')->nullable();
+            $table->enum('status', ['PENDING', 'PROCESS', 'SHIPPING', 'DONE', 'REJECTED'])->default('PENDING');
+            $table->string('catatan_pembeli')->nullable();
+            $table->string('catatan_penjual')->nullable();
             $table->integer('total_harga');
             $table->timestamps();
         });

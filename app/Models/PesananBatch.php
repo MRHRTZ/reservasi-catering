@@ -5,14 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Keranjang extends Model
+class PesananBatch extends Model
 {
     use HasFactory;
 
-    protected $table = 'keranjang';
+    protected $table = 'pesanan_batch';
     protected $guarded = [];
-
-    public function menu() {
-        return $this->belongsTo(Menu::class, 'id_menu', 'id');
-    }
 }
