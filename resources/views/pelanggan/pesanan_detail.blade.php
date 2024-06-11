@@ -9,7 +9,7 @@
         <div class="card col-lg-7 my-4">
             <div class="form-group">
                 <label for="date">Tanggal Catering</label>
-                <input type="date" name="date" id="date" value="{{ $pesanan->tanggal }}" class="form-control"
+                <input type="text" name="date" id="date" value="{{ $pesanan->tanggal }}" class="form-control"
                     readonly>
             </div>
             <div class="form-group">
@@ -63,12 +63,12 @@
                     @endforeach
                 </div>
                 <div class="card-footer">
-                    <div class="row my-2">
-                        <p class="col h6 card-title">Total Pembayaran</p>
-                        <p class="col h5 text-success text-right font-weight-bold rupiah"> {{ $total_harga }}</p>
-                    </div>
                     <div>
                         <p class="text-secondary">Catatan penjual: {{ $catatan_penjual ?? '-' }}</p>
+                    </div>
+                    <div class="row mt-2">
+                        <p class="col h6 card-title">Total Harga</p>
+                        <p class="col h5 text-success text-right font-weight-bold rupiah"> {{ $total_harga }}</p>
                     </div>
                 </div>
             </div>

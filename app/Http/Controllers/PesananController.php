@@ -139,4 +139,32 @@ class PesananController extends Controller
         ];
         return view('pelanggan.pesanan_detail', $data);
     }
+
+    public function proses_terima_pesanan(Request $request)
+    {
+        $id_pesanan = $request->query('id_pesanan');
+        $pesanan = Pesanan::find($id_pesanan);
+        $pesanan->status = 'ACCEPTED';
+        $pesanan->save();
+        return redirect()->route('admin.pesanan');
+    }
+
+    public function proses_tolak_pesanan(Request $request)
+    {
+        $id_pesanan = $request->route('id_pesanan');
+        $pesanan = Pesanan::find($id_pesanan);
+        $pesanan->status = 'REJECTED';
+        $pesanan->catatan_penjual = $request->input('alasan');
+        $pesanan->save();
+        return redirect()->route('admin.pesanan');
+    }
+
+    public function proses_kirim_pesanan(Request $request)
+    {
+        $id_pesanan = $request->query('id_pesanan');
+        $pesanan = Pesanan::find($id_pesanan);
+        $pesanan->status = 'SHIPPING';
+        $pesanan->save();
+        return redirect()->route('admin.pesanan');
+    }
 }

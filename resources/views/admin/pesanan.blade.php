@@ -36,13 +36,15 @@
                                 <span class="badge badge-success">Selesai</span>
                             @elseif ($p->status == 'REJECTED')
                                 <span class="badge badge-danger">Ditolak</span>
+                            @elseif ($p->status == 'ACCEPTED')
+                                <span class="badge badge-info">Pesanan Dibuat</span>
                             @else
                                 <span>{{ $p->status }}</span>
                             @endif
                         </td>
                         <td class="rupiah">{{ $p->total_harga }}</td>
                         <td>
-                            @if ($p->status == 'PROCESS')
+                            @if ($p->status == 'PROCESS' || $p->status == 'ACCEPTED')
                                 <a href="{{ route('admin.pesanan.proses', ['id_pesanan' => $p->id]) }}"
                                     class="btn btn-success">
                                     Proses

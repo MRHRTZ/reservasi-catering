@@ -9,7 +9,7 @@
         <div class="card col-lg-7 my-4">
             <div class="form-group">
                 <label for="date">Tanggal Catering</label>
-                <input type="date" name="date" id="date" value="{{ $pesanan->tanggal }}" class="form-control"
+                <input type="text" name="date" id="date" value="{{ $pesanan->tanggal }}" class="form-control"
                     readonly>
             </div>
             <div class="form-group">
@@ -42,9 +42,8 @@
             <hr>
             <div class="form-group">
                 <label for="file">Catatan Penjual: </label>
-                <textarea name="seller_notes" class="form-control" placeholder="Masukan catatan tambahan..." required></textarea>
+                <textarea name="seller_notes" class="form-control">{{ $pesanan->catatan_penjual }}</textarea>
             </div>
-            <button type="submit" class="btn btn-block btn-primary">Simpan Catatan</button>
         </div>
         <div class="col-lg-5 my-4">
             <div class="card">
@@ -76,9 +75,6 @@
                     <div class="row my-2">
                         <p class="col h6 card-title">Total Pembayaran</p>
                         <p class="col h5 text-success text-right font-weight-bold rupiah"> {{ $total_harga }}</p>
-                    </div>
-                    <div>
-                        <button type="submit" class="btn btn-block btn-danger">Tolak Pesanan</button>
                     </div>
                 </div>
             </div>

@@ -3,6 +3,7 @@
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KeranjangController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PembayaranController;
@@ -44,6 +45,10 @@ Route::middleware(AuthAdmin::class)->group(function () {
     Route::get('/admin/pesanan', [PesananController::class, 'list_pesanan'])->name('admin.pesanan');
     Route::get('/admin/pesanan/detail/{id_pesanan}', [PesananController::class, 'view_detail_pesanan_admin'])->name('admin.pesanan.detail');
     Route::get('/admin/pesanan/proses/{id_pesanan}', [PesananController::class, 'view_proses_pesanan'])->name('admin.pesanan.proses');
+    Route::post('/admin/pesanan/tolak/{id_pesanan}', [PesananController::class, 'proses_tolak_pesanan'])->name('admin.pesanan.tolak');
+    Route::get('/admin/pesanan/terima', [PesananController::class, 'proses_terima_pesanan'])->name('admin.pesanan.terima');
+    Route::get('/admin/pesanan/kirim', [PesananController::class, 'proses_kirim_pesanan'])->name('admin.pesanan.kirim');
+    Route::get('/admin/laporan', [LaporanController::class, 'list_laporan'])->name('admin.laporan');
 });
 
 Route::middleware(AuthPelanggan::class)->group(function () {

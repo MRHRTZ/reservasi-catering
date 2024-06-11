@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('alamat')->nullable();
             $table->string('kode_pembayaran')->nullable();
             $table->string('bukti_pembayaran')->nullable();
-            $table->enum('status', ['PENDING', 'PROCESS', 'SHIPPING', 'DONE', 'REJECTED'])->default('PENDING');
+            $table->enum('status', ['PENDING', 'PROCESS', 'ACCEPTED', 'REJECTED', 'SHIPPING', 'DONE'])->default('PENDING');
             $table->string('catatan_pembeli')->nullable();
             $table->string('catatan_penjual')->nullable();
             $table->integer('total_harga');

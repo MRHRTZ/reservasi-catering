@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 20 Bulan Mei 2024 pada 18.05
+-- Waktu pembuatan: 03 Jun 2024 pada 22.17
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -121,7 +121,11 @@ INSERT INTO `keranjang` (`id`, `id_pelanggan`, `id_menu`, `jumlah`, `harga`, `ch
 (9, 9, 1, 11, 275000, 1, '2024-05-20 06:46:35', '2024-05-20 07:02:56'),
 (10, 9, 2, 5, 140000, 1, '2024-05-20 06:46:40', '2024-05-20 07:02:56'),
 (11, 9, 3, 2, 60000, 1, '2024-05-20 06:46:46', '2024-05-20 07:02:56'),
-(12, 9, 1, 6, 150000, 1, '2024-05-20 07:44:32', '2024-05-20 07:44:44');
+(12, 9, 1, 6, 150000, 1, '2024-05-20 07:44:32', '2024-05-20 07:44:44'),
+(13, 8, 1, 3, 75000, 1, '2024-05-28 21:58:17', '2024-05-28 21:58:24'),
+(14, 9, 1, 2, 50000, 1, '2024-06-03 12:19:53', '2024-06-03 12:20:08'),
+(15, 9, 2, 5, 140000, 1, '2024-06-03 12:19:59', '2024-06-03 12:20:08'),
+(16, 9, 1, 4, 100000, 1, '2024-06-03 12:20:19', '2024-06-03 12:28:06');
 
 -- --------------------------------------------------------
 
@@ -145,8 +149,8 @@ CREATE TABLE `menu` (
 --
 
 INSERT INTO `menu` (`id`, `nama`, `deskripsi`, `harga`, `stok`, `gambar`, `created_at`, `updated_at`) VALUES
-(1, 'Paket A', 'Ayam goreng, nasi,sayur sop, lalapan, tempe tahu', 25000, 32, 'a2c288da-761b-432b-a6f8-47a4d37e57cf.jpg', '2024-05-19 00:41:41', '2024-05-20 07:44:44'),
-(2, 'Paket B', 'nasi bebek,lalapan,tempe tahu,buah,es teh', 28000, 51, '19978a62-ff0a-49f2-b94a-63f7cf635305.png', '2024-05-19 00:44:55', '2024-05-20 07:02:56'),
+(1, 'Paket A', 'Ayam goreng, nasi,sayur sop, lalapan, tempe tahu', 25000, 23, 'a2c288da-761b-432b-a6f8-47a4d37e57cf.jpg', '2024-05-19 00:41:41', '2024-06-03 12:28:06'),
+(2, 'Paket B', 'nasi bebek,lalapan,tempe tahu,buah,es teh', 28000, 46, '19978a62-ff0a-49f2-b94a-63f7cf635305.png', '2024-05-19 00:44:55', '2024-06-03 12:20:08'),
 (3, 'Paket C', 'Nasi Goreng seafood, telur, lalapan, es teh, buah', 30000, 0, '6b1a1c9a-c480-434d-a96f-e4187170744c.jpeg', '2024-05-19 00:46:01', '2024-05-20 07:02:56');
 
 -- --------------------------------------------------------
@@ -200,7 +204,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (42, '2024_05_19_125302_create_pembayaran_table', 8),
 (43, '2024_05_19_102547_create_pesanan_batch_table', 9),
 (44, '2024_05_19_071108_create_rating_table', 10),
-(45, '2024_03_31_173948_create_pesanan_table', 11);
+(46, '2024_03_31_173948_create_pesanan_table', 11);
 
 -- --------------------------------------------------------
 
@@ -228,7 +232,7 @@ CREATE TABLE `pesanan` (
   `alamat` varchar(255) DEFAULT NULL,
   `kode_pembayaran` varchar(255) DEFAULT NULL,
   `bukti_pembayaran` varchar(255) DEFAULT NULL,
-  `status` enum('PENDING','PROCESS','SHIPPING','DONE','REJECTED') NOT NULL DEFAULT 'PENDING',
+  `status` enum('PENDING','PROCESS','ACCEPTED','REJECTED','SHIPPING','DONE') NOT NULL DEFAULT 'PENDING',
   `catatan_pembeli` varchar(255) DEFAULT NULL,
   `catatan_penjual` varchar(255) DEFAULT NULL,
   `total_harga` int(11) NOT NULL,
@@ -241,8 +245,8 @@ CREATE TABLE `pesanan` (
 --
 
 INSERT INTO `pesanan` (`id`, `id_pelanggan`, `tanggal`, `pengambilan`, `alamat`, `kode_pembayaran`, `bukti_pembayaran`, `status`, `catatan_pembeli`, `catatan_penjual`, `total_harga`, `created_at`, `updated_at`) VALUES
-(3, 9, '2024-05-30 00:00:00', 'delivery', 'Jakarta raya, Cijerah, Perum Indah, Blok A No. 12', 'GOPAY', '52c8e01b-ebda-4051-8b67-6bd442a9aefc.png', 'PROCESS', 'Tolong dipercepat ya.', NULL, 475000, '2024-05-20 07:02:56', '2024-05-20 08:05:58'),
-(4, 9, NULL, NULL, NULL, NULL, NULL, 'PENDING', NULL, NULL, 150000, '2024-05-20 07:44:44', '2024-05-20 07:44:44');
+(1, 9, NULL, NULL, NULL, NULL, NULL, 'PENDING', NULL, NULL, 190000, '2024-06-03 12:20:08', '2024-06-03 12:20:08'),
+(2, 9, '2024-06-13 00:00:00', 'delivery', 'Jakarta', 'BNI', '8f14135a-bb48-4301-8cb6-823f6dccbf77.png', 'SHIPPING', 'asd', NULL, 100000, '2024-06-03 12:28:06', '2024-06-03 13:07:57');
 
 -- --------------------------------------------------------
 
@@ -266,7 +270,11 @@ INSERT INTO `pesanan_batch` (`id`, `id_keranjang`, `id_pesanan`, `created_at`, `
 (6, 9, 3, '2024-05-20 07:02:56', '2024-05-20 07:02:56'),
 (7, 10, 3, '2024-05-20 07:02:56', '2024-05-20 07:02:56'),
 (8, 11, 3, '2024-05-20 07:02:56', '2024-05-20 07:02:56'),
-(9, 12, 4, '2024-05-20 07:44:44', '2024-05-20 07:44:44');
+(9, 12, 4, '2024-05-20 07:44:44', '2024-05-20 07:44:44'),
+(10, 13, 5, '2024-05-28 21:58:24', '2024-05-28 21:58:24'),
+(11, 14, 1, '2024-06-03 12:20:08', '2024-06-03 12:20:08'),
+(12, 15, 1, '2024-06-03 12:20:08', '2024-06-03 12:20:08'),
+(13, 16, 2, '2024-06-03 12:28:06', '2024-06-03 12:28:06');
 
 -- --------------------------------------------------------
 
@@ -311,8 +319,8 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('PqeWiYvPXjviRoASuZOGimJQDUuWdiiDvmasCtH3', 7, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 OPR/109.0.0.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoibmtJQUcwbkxOaWJpeVh4UTZhNVR4UGNlaEdHZ0N2bXZLMEx6MFhmVCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJuZXciO2E6MDp7fXM6Mzoib2xkIjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzc6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hZG1pbi9kYXNoYm9hcmQiO31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aTo3O30=', 1716220931),
-('wuFDWm1s0J8gm8PQHV23lia2VOs8svWxHOV9bLDo', 9, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiT1RCV0xBcVIyZVNIMGRDWHd5OHFtcWVDVXVJbVpqTmVsSmxxaWxLUyI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzk6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9wZWxhbmdnYW4vcGVzYW5hbiI7fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjk7fQ==', 1716218292);
+('bOiQ5OO59Y0AqhNsKViQwdfTSunpoSk24QaS4ods', 9, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiZUZFeG16ZXFlYjFlcHhEVmU4Z0wwQ1lSTnZXMUxyOENwdk5qU2ZZaSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzk6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9wZWxhbmdnYW4vcGVzYW5hbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjk7fQ==', 1717445624),
+('mRTD8BsJBdyXuEz3kji2XP2UYIsBohtjzNz2GAhU', 7, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiU1pNV0FGeWJyRndvQzhycHVNZkdGeXdOcTdjd3lESGw5S083Yk1BRCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzU6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9hZG1pbi9sYXBvcmFuIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6Nzt9', 1717445835);
 
 -- --------------------------------------------------------
 
@@ -460,7 +468,7 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT untuk tabel `keranjang`
 --
 ALTER TABLE `keranjang`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT untuk tabel `menu`
@@ -478,19 +486,19 @@ ALTER TABLE `metode_pembayaran`
 -- AUTO_INCREMENT untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT untuk tabel `pesanan`
 --
 ALTER TABLE `pesanan`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `pesanan_batch`
 --
 ALTER TABLE `pesanan_batch`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT untuk tabel `rating`

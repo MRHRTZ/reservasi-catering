@@ -9,7 +9,7 @@
         <div class="card col-lg-7 my-4">
             <div class="form-group">
                 <label for="date">Tanggal Catering</label>
-                <input type="date" name="date" id="date" value="{{ $pesanan->tanggal }}" class="form-control"
+                <input type="text" name="date" id="date" value="{{ $pesanan->tanggal }}" class="form-control"
                     readonly>
             </div>
             <div class="form-group">
@@ -42,7 +42,7 @@
             <hr>
             <div class="form-group">
                 <label for="file">Catatan Penjual: </label>
-                <textarea name="seller_notes" class="form-control" placeholder="Masukan catatan tambahan..." required></textarea>
+                <textarea name="seller_notes" class="form-control" placeholder="Masukan catatan tambahan..." required>{{ $pesanan->catatan_penjual }}</textarea>
             </div>
             <button type="submit" class="btn btn-block btn-primary">Simpan Catatan</button>
         </div>
@@ -77,14 +77,46 @@
                         <p class="col h6 card-title">Total Pembayaran</p>
                         <p class="col h5 text-success text-right font-weight-bold rupiah"> {{ $total_harga }}</p>
                     </div>
-                    <div>
-                        @if ($pesanan->pengambilan == 'delivery')
-                            <button type="submit" class="btn btn-block btn-success">Kirim pesanan</button>
-                        @else
-                            <button type="submit" class="btn btn-block btn-success">Pesanan siap diambil</button>
-                        @endif
-                    </div>
+                    @if ($pesanan->status == 'PROCESS')
+                        <div class="row">
+                            <div class="col-12 col-sm-6 mb-2">
+                                <a href="{{ route('admin.pesanan.terima', ['id_pesanan' => $pesanan->id]) }}"
+                                    class="btn btn-block btn-success">Terima</a>
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <button type="button" data-toggle="modal" data-target="#tolakModal"
+                                    class="btn btn-block btn-danger">Tolak</button>
+                            </div>
+                        </div>
+                    @elseif ($pesanan->status == 'ACCEPTED')
+                        <a href="{{ route('admin.pesanan.kirim', ['id_pesanan' => $pesanan->id]) }}"
+                            class="btn btn-block btn-info">Kirim Pesanan</a>
+                    @endif
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="tolakModal" tabindex="-1" role="dialog" aria-labelledby="logoutModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form action="{{ route('admin.pesanan.tolak', ['id_pesanan' => $pesanan->id]) }}" method="POST">
+                    @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title">Masukan alasan penolakan pesanan</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <textarea name="alasan" class="form-control" placeholder="Isi alasan penolakan pesanan..." required></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-danger mt-2">Tolak Pesanan</button>
+                    </div>
+                </form>
+
             </div>
         </div>
     </div>

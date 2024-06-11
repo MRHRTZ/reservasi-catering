@@ -58,19 +58,19 @@
                 Master
             </div>
 
-            <li class="nav-item {{ Request::is('admin/pengguna') ? ' active' : '' }}">
+            <li class="nav-item {{ Request::is('admin/pengguna*') ? ' active' : '' }}">
                 <a class="nav-link" href="{{ route('admin.pengguna') }}">
                     <i class="fas fa-fw fa-users"></i>
                     <span>Pengguna</span></a>
             </li>
 
-            <li class="nav-item {{ Request::is('admin/menu') ? ' active' : '' }}">
+            <li class="nav-item {{ Request::is('admin/menu*') ? ' active' : '' }}">
                 <a class="nav-link" href="{{ route('admin.menu') }}">
                     <i class="fas fa-fw fa-hamburger"></i>
                     <span>Menu</span></a>
             </li>
 
-            <li class="nav-item {{ Request::is('admin/pembayaran') ? ' active' : '' }}">
+            <li class="nav-item {{ Request::is('admin/pembayaran*') ? ' active' : '' }}">
                 <a class="nav-link" href="{{ route('admin.pembayaran') }}">
                     <i class="fas fa-fw fa-credit-card"></i>
                     <span>Metode Pembayaran</span></a>
@@ -84,10 +84,16 @@
                 Reservasi
             </div>
 
-            <li class="nav-item {{ Request::is('admin/pesanan') ? ' active' : '' }}">
+            <li class="nav-item {{ Request::is('admin/pesanan*') ? ' active' : '' }}">
                 <a class="nav-link" href="{{ route('admin.pesanan') }}">
                     <i class="fas fa-fw fa-book-open"></i>
                     <span>Pesanan</span></a>
+            </li>
+            
+            <li class="nav-item {{ Request::is('admin/laporan') ? ' active' : '' }}">
+                <a class="nav-link" href="{{ route('admin.laporan') }}">
+                    <i class="fas fa-fw fa-chart-bar"></i>
+                    <span>Laporan</span></a>
             </li>
 
 

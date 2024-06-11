@@ -1,24 +1,35 @@
-@extends('pelanggan.master')
+@extends('admin.master')
 
 @section('content')
+    
+
     <div class="mt-4">
+        <div class="text-right mb-3">
+            <button class="btn btn-primary" onclick="window.print()">Print</button>
+        </div>
         <table class="table">
             <thead>
                 <tr>
                     <th>ID</th>
+                    <th>Nama</th>
                     <th>Menu</th>
                     <th>Jumlah</th>
+                    <th>Pengambilan</th>
+                    <th>Pembayaran</th>
                     <th>Status</th>
                     <th>Total Harga</th>
-                    <th>Aksi</th>
+                    <th>Tanggal</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($pesanan as $p)
                     <tr>
                         <td>{{ $p->id }}</td>
+                        <td>{{ $p->nama }}</td>
                         <td>{{ $p->menu }}</td>
                         <td>{{ $p->jumlah }}</td>
+                        <td>{{ $p->pengambilan ?? '-' }}</td>
+                        <td>{{ $p->kode_pembayaran ?? '-' }}</td>
                         <td>
                             @if ($p->status == 'PENDING')
                                 <span class="badge badge-secondary">Belum Bayar</span>
@@ -37,19 +48,7 @@
                             @endif
                         </td>
                         <td class="rupiah">{{ $p->total_harga }}</td>
-                        <td>
-                            @if ($p->status == 'PENDING')
-                                <a href="{{ route('pelanggan.checkout', ['id_pesanan' => $p->id]) }}"
-                                    class="btn btn-success">Bayar</a>
-                            @elseif ($p->status == 'SHIPPING')
-                                <a href="#"
-                                    class="btn btn-info">Diterima</a>
-                            @else
-                                <a href="{{ route('pelanggan.pesanan.detail', ['id_pesanan' => $p->id]) }}"
-                                    class="btn btn-secondary">Detail</a>
-                            @endif
-                        </td>
-                        </td>
+                        <td>{{ $p->tanggal }}</td>
                     </tr>
                 @endforeach
             </tbody>

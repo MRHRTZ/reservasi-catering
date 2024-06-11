@@ -11,7 +11,7 @@
             <div class="card col-lg-7 my-4">
                 <div class="form-group">
                     <label for="date">Tanggal Catering</label>
-                    <input type="date" name="date" id="date" class="form-control" required>
+                    <input type="datetime-local" name="date" id="date" class="form-control" required>
                 </div>
                 <div class="form-group">
                     <label for="delivery">Pengambilan</label>
