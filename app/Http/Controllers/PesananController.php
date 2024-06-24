@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\MetodePembayaran;
 use App\Models\Pesanan;
 use App\Models\PesananBatch;
+use App\Models\Rating;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -62,7 +63,7 @@ class PesananController extends Controller
         ];
         return view('admin.pesanan_detail', $data);
     }
-    
+
     public function view_proses_pesanan(Request $request)
     {
         $id_pesanan = $request->route('id_pesanan');
@@ -88,6 +89,34 @@ class PesananController extends Controller
             'total_harga' => $totalHarga,
         ];
         return view('admin.pesanan_proses', $data);
+    }
+
+    public function proses_terima_pesanan(Request $request)
+    {
+        $id_pesanan = $request->query('id_pesanan');
+        $pesanan = Pesanan::find($id_pesanan);
+        $pesanan->status = 'ACCEPTED';
+        $pesanan->save();
+        return redirect()->route('admin.pesanan');
+    }
+
+    public function proses_tolak_pesanan(Request $request)
+    {
+        $id_pesanan = $request->route('id_pesanan');
+        $pesanan = Pesanan::find($id_pesanan);
+        $pesanan->status = 'REJECTED';
+        $pesanan->catatan_penjual = $request->input('alasan');
+        $pesanan->save();
+        return redirect()->route('admin.pesanan');
+    }
+
+    public function proses_kirim_pesanan(Request $request)
+    {
+        $id_pesanan = $request->query('id_pesanan');
+        $pesanan = Pesanan::find($id_pesanan);
+        $pesanan->status = 'SHIPPING';
+        $pesanan->save();
+        return redirect()->route('admin.pesanan');
     }
 
     /*
@@ -140,31 +169,38 @@ class PesananController extends Controller
         return view('pelanggan.pesanan_detail', $data);
     }
 
-    public function proses_terima_pesanan(Request $request)
+    public function proses_nilai_pesanan(Request $request)
     {
-        $id_pesanan = $request->query('id_pesanan');
+        $id_pesanan = $request->input('id_pesanan');
         $pesanan = Pesanan::find($id_pesanan);
-        $pesanan->status = 'ACCEPTED';
+        $pesanan->status = 'DONE';
         $pesanan->save();
-        return redirect()->route('admin.pesanan');
-    }
 
-    public function proses_tolak_pesanan(Request $request)
-    {
-        $id_pesanan = $request->route('id_pesanan');
-        $pesanan = Pesanan::find($id_pesanan);
-        $pesanan->status = 'REJECTED';
-        $pesanan->catatan_penjual = $request->input('alasan');
-        $pesanan->save();
-        return redirect()->route('admin.pesanan');
-    }
+        $rating = null;
+        if ($request->input('rating-5') == 'on') {
+            $rating = 5;
+        } elseif ($request->input('rating-4') == 'on') {
+            $rating = 4;
+        } elseif ($request->input('rating-3') == 'on') {
+            $rating = 3;
+        } elseif ($request->input('rating-2') == 'on') {
+            $rating = 2;
+        } elseif ($request->input('rating-1') == 'on') {
+            $rating = 1;
+        }
 
-    public function proses_kirim_pesanan(Request $request)
-    {
-        $id_pesanan = $request->query('id_pesanan');
-        $pesanan = Pesanan::find($id_pesanan);
-        $pesanan->status = 'SHIPPING';
-        $pesanan->save();
-        return redirect()->route('admin.pesanan');
+        if ($rating) {
+            $pesanan_batch = PesananBatch::where('id_pesanan', $id_pesanan)->get();
+            foreach ($pesanan_batch as $item) {
+                Rating::create([
+                    'id_menu' => $item->keranjang->id_menu,
+                    'id_pelanggan' => $pesanan->id_pelanggan,
+                    'rating' => $rating,
+                    'catatan' => $request->input('catatan'),
+                ]);
+            }
+        }
+
+        return redirect()->route('pelanggan.pesanan');
     }
 }

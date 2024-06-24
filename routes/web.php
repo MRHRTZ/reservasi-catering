@@ -64,4 +64,5 @@ Route::middleware(AuthPelanggan::class)->group(function () {
     Route::post('/pelanggan/checkout/{id_pesanan}', [CheckoutController::class, 'proses_bayar'])->name('pelanggan.checkout.bayar');
     Route::get('/pelanggan/pesanan', [PesananController::class, 'view_pesanan'])->name('pelanggan.pesanan');
     Route::get('/pelanggan/pesanan/detail/{id_pesanan}', [PesananController::class, 'view_detail_pesanan'])->name('pelanggan.pesanan.detail');
+    Route::post('/pelanggan/pesanan/nilai', [PesananController::class, 'proses_nilai_pesanan'])->name('pelanggan.pesanan.nilai');
 });

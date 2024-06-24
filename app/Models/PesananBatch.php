@@ -11,4 +11,14 @@ class PesananBatch extends Model
 
     protected $table = 'pesanan_batch';
     protected $guarded = [];
+
+    public function keranjang()
+    {
+        return $this->belongsTo(Keranjang::class, 'id_keranjang', 'id');
+    }
+
+    public function pesanan()
+    {
+        return $this->belongsTo(Pesanan::class, 'id_pesanan', 'id');
+    }
 }

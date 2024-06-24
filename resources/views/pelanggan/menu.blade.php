@@ -24,10 +24,13 @@
                                 style="width: -webkit-fill-available;">
                             <div class="conten row my-2">
                                 <div class="starst col">
-                                    @for ($i = 0; $i < $m->rating; $i++)
+                                    @php
+                                        $roundedRating = round($m->rating);
+                                    @endphp
+                                    @for ($i = 0; $i < $roundedRating; $i++)
                                         <i class="fas fa-star" style="color: yellow"></i>
                                     @endfor
-                                    @for ($i = 0; $i < 5 - $m->rating; $i++)
+                                    @for ($i = 0; $i < 5 - $roundedRating; $i++)
                                         <i class="fas fa-star"></i>
                                     @endfor
                                 </div>
